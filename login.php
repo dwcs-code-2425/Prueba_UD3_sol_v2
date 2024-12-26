@@ -51,29 +51,16 @@
 </html>
 <?php
 
-if (isset($_SESSION["user"])) {
-
-    header("location: categorias.php");
-
-}
-
-
-
-if (isset($_POST["email"], $_POST["pass"])) {
+require_once 'connection.php';
+if (isset($_POST["email"], $_POST["pwd"])) {
     $email = $_POST["email"];
-    $pass = $_POST["pass"];
+    $pass = $_POST["pwd"];
 
     if (login($email, $pass)) {
         iniciarSesion();
         $_SESSION["usuario"] = $email;
 
-        if (isset($_POST["rememberMe"])) {
-
-
-            setcookie("rememberMe", 1, time() + MY_COOKIE);
-        } else {
-            setcookie("rememberMe", 1, 0);
-        }
+        
 
         header("location: categorias.php");
         exit;
