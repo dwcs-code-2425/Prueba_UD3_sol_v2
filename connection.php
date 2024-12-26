@@ -33,27 +33,6 @@ function login(string $user, string $pass): bool
 
 
 
-function countProductosByCatId(int $catId): int|false
-{
-
-    try {
-        $con = getConnection();
-        $stmt = $con->prepare("select count(*) from products_categories where CategoryID = ?");
-        $stmt->execute([$catId]);
-        $count = $stmt->fetch(PDO::FETCH_NUM);
-//Si no hay resultados devuelve false
-       if ($count !== false)
-            return $count[0];
-        else {
-            return 0;
-        }
-    } finally {
-        $con = null;
-        $stmt = null;
-    }
-
-
-}
 
 
 
@@ -214,4 +193,27 @@ function findUserByEmail(string $email): bool
         $conn = false;
         $stmt = false;
     }
+}
+
+
+function countProductosByCatId(int $catId): int|false
+{
+
+    try {
+        $con = getConnection();
+        $stmt = $con->prepare("select count(*) from products_categories where CategoryID = ?");
+        $stmt->execute([$catId]);
+        $count = $stmt->fetch(PDO::FETCH_NUM);
+//Si no hay resultados devuelve false
+       if ($count !== false)
+            return $count[0];
+        else {
+            return 0;
+        }
+    } finally {
+        $con = null;
+        $stmt = null;
+    }
+
+
 }
